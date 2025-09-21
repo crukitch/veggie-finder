@@ -1,2 +1,74 @@
 # veggie-finder
 Veggie finder grocery stores by state 
+<label for="state">Choose a state:</label>
+<select id="state">
+  <option value="">--Select--</option>
+  <option value="Florida">Florida</option>
+  <option value="Georgia">Georgia</option>
+  <option value="New York">New York</option>
+  <option value="North Carolina">North Carolina</option>
+</select>
+<button onclick="showStores()">Find Stores</button>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Veggie Finder</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    select, button { margin: 10px 0; padding: 5px; }
+    .result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+  <h1>Veggie Finder 🥬</h1>
+  <p>Select a state to see grocery chains that often carry:</p>
+  <ul>
+    <li>Cabbage</li>
+    <li>Collard greens</li>
+    <li>Brussels sprouts</li>
+    <li>Mustard greens</li>
+    <li>Turnip greens</li>
+    <li>Radicchio</li>
+    <li>Red cabbage</li>
+  </ul>
+
+  <label for="state">Choose a state:</label>
+  <select id="state">
+    <option value="">--Select--</option>
+    <option value="Florida">Florida</option>
+    <option value="Georgia">Georgia</option>
+    <option value="New York">New York</option>
+    <option value="North Carolina">North Carolina</option>
+    <!-- we can add more later -->
+  </select>
+  <button onclick="showStores()">Find Stores</button>
+
+  <div id="output" class="result"></div>
+
+  <script>
+    const stores = {
+      "Florida": ["Publix", "Whole Foods Market", "Trader Joe's", "Walmart Supercenter"],
+      "Georgia": ["Publix", "Kroger", "Whole Foods Market", "Walmart Supercenter"],
+      "New York": ["Wegmans", "ShopRite", "Whole Foods Market", "Trader Joe's"],
+      "North Carolina": ["Harris Teeter", "Food Lion", "Whole Foods Market", "Walmart Supercenter"]
+    };
+
+    function showStores() {
+      const state = document.getElementById("state").value;
+      const output = document.getElementById("output");
+      if (!state) {
+        output.innerHTML = "Please select a state.";
+        return;
+      }
+      const list = stores[state];
+      if (list) {
+        output.innerHTML = "<h3>Stores in " + state + ":</h3><ul>" +
+          list.map(s => "<li>" + s + "</li>").join("") + "</ul>";
+      } else {
+        output.innerHTML = "No data available yet for " + state + ".";
+      }
+    }
+  </script>
+</body>
+</html>
