@@ -1,63 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Veggie Finder</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    select, button { margin: 10px 0; padding: 5px; }
-    .result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
-  </style>
+    <meta charset="UTF-8">
+    <title>Veggie Finder</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        select, button { margin: 10px 0; padding: 5px; }
+        .result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+    </style>
 </head>
 <body>
-  <h1>Veggie Finder 🥬</h1>
-  <p>Select a state to see grocery chains that often carry:</p>
-  <ul>
-    <li>Cabbage</li>
-    <li>Collard greens</li>
-    <li>Brussels sprouts</li>
-    <li>Mustard greens</li>
-    <li>Turnip greens</li>
-    <li>Radicchio</li>
-    <li>Red cabbage</li>
-  </ul>
+    <h1>Veggie Finder 🥬</h1>
+    <label for="veggie">Choose a vegetable:</label>
+    <select id="veggie">
+        <option value="">--Select--</option>
+        <option value="Cabbage">Cabbage</option>
+        <option value="Collard greens">Collard greens</option>
+        <option value="Brussels sprouts">Brussels sprouts</option>
+        <option value="Mustard greens">Mustard greens</option>
+        <option value="Turnip greens">Turnip greens</option>
+        <option value="Radicchio">Radicchio</option>
+        <option value="Red cabbage">Red cabbage</option>
+    </select>
+    <button onclick="showStores()">Find Stores</button>
 
-  <label for="state">Choose a state:</label>
-  <select id="state">
-    <option value="">--Select--</option>
-    <option value="Florida">Florida</option>
-    <option value="Georgia">Georgia</option>
-    <option value="New York">New York</option>
-    <option value="North Carolina">North Carolina</option>
-    <!-- we can add more later -->
-  </select>
-  <button onclick="showStores()">Find Stores</button>
+    <div id="output" class="result"></div>
 
-  <div id="output" class="result"></div>
+    <script>
+        const stores = {
+            "Cabbage": ["Publix", "Kroger", "Trader Joe's", "Whole Foods Market"],
+            "Collard greens": ["Publix", "Food Lion", "Whole Foods Market", "Walmart Supercenter"],
+            "Brussels sprouts": ["Wegmans", "ShopRite", "Harris Teeter", "Kroger"],
+            "Mustard greens": ["Publix", "Whole Foods Market", "Food Lion", "Kroger"],
+            "Turnip greens": ["Publix", "Kroger", "Walmart Supercenter", "Food Lion"],
+            "Radicchio": ["Whole Foods Market", "Trader Joe's", "Wegmans", "Publix"],
+            "Red cabbage": ["Kroger", "Publix", "Trader Joe's", "Whole Foods Market"]
+        };
 
-  <script>
-    const stores = {
-      "Florida": ["Publix", "Whole Foods Market", "Trader Joe's", "Walmart Supercenter"],
-      "Georgia": ["Publix", "Kroger", "Whole Foods Market", "Walmart Supercenter"],
-      "New York": ["Wegmans", "ShopRite", "Whole Foods Market", "Trader Joe's"],
-      "North Carolina": ["Harris Teeter", "Food Lion", "Whole Foods Market", "Walmart Supercenter"]
-    };
-
-    function showStores() {
-      const state = document.getElementById("state").value;
-      const output = document.getElementById("output");
-      if (!state) {
-        output.innerHTML = "Please select a state.";
-        return;
-      }
-      const list = stores[state];
-      if (list) {
-        output.innerHTML = "<h3>Stores in " + state + ":</h3><ul>" +
-          list.map(s => "<li>" + s + "</li>").join("") + "</ul>";
-      } else {
-        output.innerHTML = "No data available yet for " + state + ".";
-      }
-    }
-  </script>
+        function showStores() {
+            const veggie = document.getElementById("veggie").value;
+            const output = document.getElementById("output");
+            if (!veggie) {
+                output.innerHTML = "Please select a vegetable.";
+                return;
+            }
+            const list = stores[veggie];
+            if (list) {
+                output.innerHTML = "<h3>Stores that carry " + veggie + ":</h3><ul>" +
+                    list.map(s => "<li>" + s + "</li>").join("") + "</ul>";
+            } else {
+                output.innerHTML = "No data available yet for " + veggie + ".";
+            }
+        }
+    </script>
 </body>
 </html>
